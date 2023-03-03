@@ -8,10 +8,12 @@ cd /app
 unzip /tmp/catalogue.zip
 cd /app
 npm install
-cp/configs/catalogue.service /etc/systemd/system/catalogue.service
+cd configs/catalogue.service /etc/systemd/system/catalogue.servive
 systemctl daemon-reload
 systemctl enable catalogue
 systemctl start catalogue
+
 cp configs/mongodb.repo /etc/yum.repos.d/mongodb.repo
 yum install mongodb-org-shell -y
+
 mongo --host mongodb.navanidevops.online </app/schema/catalogue.js
