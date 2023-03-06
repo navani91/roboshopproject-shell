@@ -1,17 +1,21 @@
 source common.sh
 
 print_head "setup mongodb repository"
-cp configs/mongodb.repo /etc/yum.repos.d/mongo.repo
+cp configs/mongodb.repo /etc/yum.repos.d/mongo.repo &>>$(log_file)
 
 print_head "install mongodb"
-yum install mongodb-org -y
+yum install mongodb-org -y &>>$(log_file)
+
+print_head"update mongodb listen address"
+sed -l -e/'127.0.0.1/0.0.0.0/' /etc/mongod.conf &>>$(log_file)
 
 print_head "enable mongodb"
-systemctl enable mongod
+systemctl enable mongod &>>$(log_file)
 
 print_head "start monodb service"
-systemctl start mongod
+systemctl restart mongod &>>$(log_file)
 
-# update /etc/mongod.conf file from 127.0.0.1 with 0.0.0.0
+
+
 
 
